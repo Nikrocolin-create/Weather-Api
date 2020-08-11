@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table border="1">
+        <thead align="center">
+        <td>City</td><td>Sky</td><td>Temperature</td><td>Pressure</td><td>Humidity</td><td>Updated</td>
+        </thead>
+        <tr align="center">
+            <td>{{info['city']}}</td>
+            <td>{{info['sky']}}</td>
+            <td>{{info['temperature']}}</td>
+            <td>{{info['pressure']}}</td>
+            <td>{{info['humidity']}}</td>
+            <td>{{info['updated']}}</td>
+        </tr>
+    </table>
+{% endblock %}
