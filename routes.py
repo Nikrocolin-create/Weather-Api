@@ -14,6 +14,7 @@ def welcome():
 
 @app.route("/information/<city>", methods=["GET", "POST"])
 def information(city):
+    print("hello")
     a = json.loads(city.replace("'",'"'))
     return render_template("information.html", info=a)
 

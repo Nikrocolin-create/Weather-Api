@@ -2,7 +2,9 @@
 from flask import request, make_response, render_template
 from Core.Parser import Parser
 import requests
+from app import db
 from config import API_KEY
+from models import ApiRequests
 
 
 class BaseController:
@@ -21,11 +23,18 @@ class BaseController:
 
 class ResultMaker(BaseController):
     def _call(self, city):
-        print(city)
-        response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}").json()
-        parsed = Parser().parse(response)
+        response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}")
+        if not response.ok:
+            raise ValueError
+        parsed = Parser().parse(response.json())
+        obj = ApiRequests(city=response['city'], sky=response['sky'],
+                    temperature=response['temperature'], pressure=response['pressure'],
+                    humidity=response['humidity'], updated=response['updated'])
+        db.session.add(obj)
+        db.session.commit()
         return parsed
 
 if __name__ == "__main__":
+    print("hello")
     response = ResultMaker().call('Moscow')
     print(response)

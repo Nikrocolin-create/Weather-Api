@@ -5,8 +5,8 @@ from datetime import datetime
 class ApiRequests(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(64))
-    updated = db.Column(db.DateTime, default=datetime.utcnow)
+    updated = db.Column(db.String(64))
     sky = db.Column(db.String(20))
-    temperature = db.Column(db.Float)
-    pressure = db.Column(db.Float)
-    humidity = db.Column(db.Float)
+    temperature = db.Column(db.String(64))
+    pressure = db.Column(db.String(64))
+    humidity = db.Column(db.String(64))
