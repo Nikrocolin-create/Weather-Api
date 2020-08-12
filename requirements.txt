@@ -9,8 +9,6 @@ elasticsearch==7.5.1
 Flask==1.0.2
 Flask-Babel==0.11.2
 Flask-Bootstrap==3.3.7.1
-Flask-Login==0.4.0
-Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
 Flask-Moment==0.5.2
 Flask-SQLAlchemy==2.3.2

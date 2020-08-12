@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import request, make_response, render_template
+from flask import request, make_response
 from Core.Parser import Parser
 import requests
 from app import db
@@ -22,11 +22,15 @@ class BaseController:
 
 
 class ResultMaker(BaseController):
+    """
+    class for sending api request
+    contains useful parameters for weather and calculates clothes fow this weather
+    """
     def _call(self, city):
         response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}")
         if not response.ok:
             return "not_found"
-        parsed = Parser().parse(response.json())
+        parsed = Parser().parse(response.json())#class exctracting needed params and returns a dict
         obj = ApiRequests(city=parsed['city'], sky=parsed['sky'],
                     temperature=parsed['temperature'], pressure=parsed['pressure'],
                     humidity=parsed['humidity'], windspeed=parsed['windspeed'],
@@ -82,8 +86,3 @@ class ResultMaker(BaseController):
         if self.weather['humidity'] > 75:
             self.clothes['accessories'] = 'umbrella'
         return self.clothes
-
-if __name__ == "__main__":
-    print("hello")
-    response = ResultMaker().call('Moscow')
-    print(response)
