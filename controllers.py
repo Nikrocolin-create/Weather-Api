@@ -1,4 +1,4 @@
-
+from datetime import datetime
 from flask import request, make_response, render_template
 from Core.Parser import Parser
 import requests
@@ -24,17 +24,19 @@ class BaseController:
 class ResultMaker(BaseController):
     def _call(self, city):
         response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}")
+        print(response.json())
         if not response.ok:
-            raise ValueError
+            return "not_found"
         parsed = Parser().parse(response.json())
-        obj = ApiRequests(city=response['city'], sky=response['sky'],
-                    temperature=response['temperature'], pressure=response['pressure'],
-                    humidity=response['humidity'], updated=response['updated'])
+        obj = ApiRequests(city=parsed['city'], sky=parsed['sky'],
+                    temperature=parsed['temperature'], pressure=parsed['pressure'],
+                    humidity=parsed['humidity'],
+                    updated=datetime.strptime(parsed['updated'], '%Y-%m-%d %H:%M:%S'))
         db.session.add(obj)
         db.session.commit()
         return parsed
 
 if __name__ == "__main__":
     print("hello")
-    response = ResultMaker().call('Moscow')
+    response = ResultMaker().call('Moscow11')
     print(response)

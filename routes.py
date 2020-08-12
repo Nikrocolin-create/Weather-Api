@@ -15,8 +15,14 @@ def welcome():
 @app.route("/information/<city>", methods=["GET", "POST"])
 def information(city):
     print("hello")
+    if city == "not_found":
+        return redirect(url_for('wrong_name'))
     a = json.loads(city.replace("'",'"'))
     return render_template("information.html", info=a)
+
+@app.route("/wrong_name")
+def wrong_name():
+    return render_template("wrong_name.html")
 
 @app.route('/test')
 def test():
