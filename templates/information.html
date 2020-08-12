@@ -13,5 +13,18 @@
             <td>{{info['humidity']}}</td>
             <td>{{info['updated']}}</td>
         </tr>
-    </table>
+        </table>
+        <h3>Recommended to wear: </h3>
+         <table border="1">
+        <thead align="center">
+        <td>Head</td><td>Body</td><td>Legs</td><td>Feet</td><td>Accessories</td>
+        </thead>
+        <tr align="center">
+            <td>{{clothes['head']}}</td>
+            <td>{{clothes['body']}}</td>
+            <td>{{clothes['legs']}}</td>
+            <td>{{clothes['feet']}}</td>
+            <td>{{clothes['accessories']}}</td>
+        </tr>
+        </table>
 {% endblock %}

@@ -34,9 +34,56 @@ class ResultMaker(BaseController):
                     updated=datetime.strptime(parsed['updated'], '%Y-%m-%d %H:%M:%S'))
         db.session.add(obj)
         db.session.commit()
+        self.weather = {"city" : parsed['city'], 'sky': parsed['sky'],
+                    'temperature': parsed['temperature'], 'pressure': parsed['pressure'],
+                    'humidity': parsed['humidity']}
         return parsed
+
+    def clothes(self):
+        self.clothes = {}
+        if self.weather['temperature'] > 298:
+            self.clothes['body'] = 'T-shirt'
+        elif self.weather['temperature'] > 293:
+            self.clothes['body'] = 'Longsleeve'
+        elif self.weather['temperature'] > 288:
+            self.clothes['body'] = 'Light jacket and T-shirt'
+        elif self.weather['temperature'] > 283:
+            self.clothes['body'] = 'Jacket'
+        elif self.weather['temperature'] > 273:
+            self.clothes['body'] = 'Coat'
+        elif self.weather['temperature']:
+            self.clothes['body'] = 'Coat and sweater'
+
+        if self.weather['temperature'] > 298:
+            self.clothes['legs'] = 'Shorts or skirt'
+        elif self.weather['temperature'] > 288:
+            self.clothes['legs'] = 'Light trousers or jeans'
+        elif self.weather['temperature'] > 278:
+            self.clothes['legs'] = 'trousers or jeans'
+        elif self.weather['temperature']:
+            self.clothes['legs'] = 'Warm trousers or warm jeans'
+
+        if self.weather['temperature'] > 298:
+            self.clothes['feet'] = 'Sandals'
+        elif self.weather['temperature'] > 286:
+            self.clothes['feet'] = 'Snickers or shoes'
+        elif self.weather['temperature'] > 278:
+            self.clothes['feet'] = 'Boots'
+        elif self.weather['temperature']:
+            self.clothes['feet'] = 'Warm boots'
+
+        if self.weather['temperature'] > 298:
+            self.clothes['head'] = 'Cap'
+        elif self.weather['temperature'] < 283:
+            self.clothes['head'] = 'Hat'
+
+        if self.weather['sky'] == "clear" and self.weather['temperature'] >= 298:
+            self.clothes['accessories'] = 'sunglasses'
+        if self.weather['humidity'] > 75:
+            self.clothes['accessories'] = 'umbrella'
+        return self.clothes
 
 if __name__ == "__main__":
     print("hello")
-    response = ResultMaker().call('Moscow11')
+    response = ResultMaker().call('Moscow')
     print(response)
