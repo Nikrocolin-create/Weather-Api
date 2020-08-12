@@ -7,6 +7,7 @@ class Parser():
                     "pressure": response_json['main']['pressure'],
                     "humidity": response_json['main']['humidity'],
                     "city": response_json['name'],
+                    "windspeed":response_json['wind']['speed'],
                     "updated": str(datetime.now())[:-7]}
         return dict_res
 

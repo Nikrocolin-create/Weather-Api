@@ -24,18 +24,18 @@ class BaseController:
 class ResultMaker(BaseController):
     def _call(self, city):
         response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}")
-        print(response.json())
         if not response.ok:
             return "not_found"
         parsed = Parser().parse(response.json())
         obj = ApiRequests(city=parsed['city'], sky=parsed['sky'],
                     temperature=parsed['temperature'], pressure=parsed['pressure'],
-                    humidity=parsed['humidity'],
+                    humidity=parsed['humidity'], windspeed=parsed['windspeed'],
                     updated=datetime.strptime(parsed['updated'], '%Y-%m-%d %H:%M:%S'))
         db.session.add(obj)
         db.session.commit()
         self.weather = {"city" : parsed['city'], 'sky': parsed['sky'],
                     'temperature': parsed['temperature'], 'pressure': parsed['pressure'],
+                    'windspeed': parsed['windspeed'],
                     'humidity': parsed['humidity']}
         return parsed
 

@@ -9,7 +9,3 @@ if __name__=="__main__":
                     humidity="50", updated=datetime.strptime(str1, '%Y-%m-%d %H:%M:%S'))
     db.session.add(obj1)
     db.session.commit()
-
-    # obj1 = datetime.strptime(str1, '%Y-%m-%d %H:%M:%S')
-    # print(type(obj1))
-    # print(obj1)

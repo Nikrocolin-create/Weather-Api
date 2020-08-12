@@ -3,7 +3,7 @@
 {% block content %}
     <table border="1">
         <thead align="center">
-        <td>City</td><td>Sky</td><td>Temperature</td><td>Pressure</td><td>Humidity</td><td>Updated</td>
+        <td>City</td><td>Sky</td><td>Temperature</td><td>Pressure</td><td>Humidity</td><td>Wind speed</td><td>Updated</td>
         </thead>
         <tr align="center">
             <td>{{info['city']}}</td>
@@ -11,6 +11,7 @@
             <td>{{info['temperature']}}</td>
             <td>{{info['pressure']}}</td>
             <td>{{info['humidity']}}</td>
+            <td>{{info['windspeed']}}</td>
             <td>{{info['updated']}}</td>
         </tr>
         </table>

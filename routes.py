@@ -16,8 +16,6 @@ def welcome():
         clothes = obj.clothes()
         if form.degrees.data == True:
             result['temperature'] -= 273
-        print(type(clothes))
-        print(type(result))
         return redirect(url_for('.information', clothes=clothes, city=result))
     return render_template("welcome.html", form=form)
 
