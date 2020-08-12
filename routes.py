@@ -11,6 +11,8 @@ def welcome():
     if form.validate_on_submit():
         obj = ResultMaker()
         result = obj.call(form.city.data)
+        if result == "not_found":
+            return redirect(url_for('wrong_name'))
         clothes = obj.clothes()
         if form.degrees.data == True:
             result['temperature'] -= 273
@@ -22,8 +24,6 @@ def welcome():
 
 @app.route("/information/<city>/<clothes>", methods=["GET", "POST"])
 def information(city,clothes):
-    if city == "not_found":
-        return redirect(url_for('wrong_name'))
     a = json.loads(city.replace("'", '"'))
     b = json.loads(clothes.replace("'", '"'))
     return render_template("information.html", info=a, clothes=b)
